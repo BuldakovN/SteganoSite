@@ -3,11 +3,12 @@ from encrypts import Decryptor, Encryptor
 from encrypts.Decryptor import decrypt
 from encrypts.Encryptor import encrypt
 import requests
-from PIL import Image
+from PIL import Image, ImageDraw
+import os
 
 
 class Controller:
-    def __init__(self, token):
+    def __init__(self):
         pass
 
 
@@ -19,8 +20,9 @@ class Controller:
 
         filename: название файла для зашифровки
         """
-        image = Image.open(filename)
+        image = Image.open(os.path.abspath(filename))
         Encryptor.encrypt(image, text)
+        image.save(os.path.abspath(filename))
         return image
 
 
@@ -46,6 +48,7 @@ class Controller:
         # кодирование изображения
         image = Image.open("deepapi_image.jpg")
         Encryptor.encrypt(image, text)
+        image.save()
         return image
 
 

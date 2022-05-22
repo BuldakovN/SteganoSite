@@ -111,7 +111,7 @@
 	}
 	
 	div.encrypted-image{
-		
+		margin-top: 30px;
 		display: inline-block;
 	}
 	
@@ -130,13 +130,18 @@
 				<input type="submit">
 		</form>
 	</div>
-	<div class="preview" align="right" id="preview"></div>
+	{% if data.post %}
+		<div class="encrypted-image">
+			<h1>Изображение с зашифрованным сообщением</h1>
+			<img src="{{url_for('static', filename=data.filename)}}" height=400px width=800>
+		</div>
+	{% endif %}
+	<div class="preview" align="right" id="preview" height=400px width=800px>
+		<h1>ПРЕВЬЮ</h1>
+	</div>
 </div>
-{% if data.post %}
-<div class="encrypted-image">
-{{ data.data }}
-	<img src="{{url_for('static', filename=data.filename)}}" height=500px>
-</div>
+{% if data.data != "" %}
+	{{ data.data }}
 {% endif %}
 
 <script>
