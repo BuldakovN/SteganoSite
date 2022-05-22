@@ -1,0 +1,48 @@
+<html>
+    <head>
+		<title>SteganoSite</title>
+		<style>
+			header{
+				background-color: #007fff;
+				height: 250;
+				border-radius: 0 0 40px 40px;
+				color: #fff;
+				font-size: 30;
+				font-family: Arial;
+			}
+			header h1{
+				text-align: center;
+				font-size: 150;
+				text-shadow: 3px 0px 0px black;
+				margin-bottom: 20px; 
+			}
+			header div{
+				#outline: 2px solid #000; /* Чёрная рамка */
+				text-align: center
+			}
+			A{
+				color: #fff;
+				text-decoration: none;
+				margin-left: 50px;
+			}
+			A:hover { 
+				text-decoration: underline; /* Добавляем подчеркивание при наведении курсора на ссылку */
+				color: red; /* Ссылка красного цвета */
+			} 
+			
+		</style>
+    </head>
+    <body>
+		<header>
+			<div class="Title">
+				<h1>SteganoSite</h1>
+			</div>
+			<div>
+				<a href="{{ links.encrypt }}">Зашифровать</a>
+				<a href="{{ links.decrypt }}">Расшифровать</a>
+				<a href="{{ links.deepapiencrypt }}">Зашифровать в сгенерированную картинку</a>
+			</div>
+		</header>
+		{% block form %}{% endblock %}
+    </body>
+</html>
