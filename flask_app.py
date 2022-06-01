@@ -83,7 +83,6 @@ def deepapiencrypt():
         controller = Controller()
         image = controller.to_encrypt_with_generated_image(text, theme)
         data['filename'] = image.filename.split("/")[-1]
-        data['data'] = data['filename']
     return render_template("deepapiencrypt.html", links=links, data=data)
 
 
