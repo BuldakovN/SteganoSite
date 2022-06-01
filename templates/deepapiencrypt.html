@@ -86,7 +86,7 @@
 	
 	div.form{
 		width: 350px;
-		height: 325px;
+		height: 200px;
 		margin-top: 10px;
 		margin-bottom: 0px;
 	}
@@ -132,13 +132,13 @@
 	}
 	
 </style>
-<table></tr>
+<table><tr>
 	<td id="form-cell">
 		<div class="form" align="center" width=100px height=400px>
 			<form method="POST" enctype="multipart/form-data">
-					<div id="upload-container">
-						<input id="file-input" type="file" name="image_for_encrypt" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)">
-						<label for="file-input" id="file-label">Выберите файл</label>
+					<div class="text-field">
+						<label class="text-field__label" for="theme" align="left">Тема изображения: </label>
+						<input class="text-field__input" type="text" name="theme" id="theme" placeholder="Тема изображения">
 					</div>
 					<div class="text-field">
 						<label class="text-field__label" for="text" align="left">Текст для шифровки: </label>
@@ -146,11 +146,6 @@
 					</div>
 					<input type="submit">
 			</form>
-		</div>
-	</td>
-	<td hidden id="cell-to-hide">
-		<div class="preview" align="center" id="preview" height=350px width=550px>
-			<h1>Изображения для шифровки</h1>
 		</div>
 	</td>
 	{% if data.post %}
@@ -161,41 +156,15 @@
 		</div>
 	</td>
 	{% endif %}
-	{% if data.data != "" %}
+	{% if data.error != "" %}
 	<td id="error">
-		<h1>{{ data.data }}</h1>
+		<h1>ОШИБКА: </h1>
+		<h1>{{ data.error }}</h1>
 	</td>
+	{% endif %}
+	{% if data.data != "" %}
+		<h1>{{ data.data }}</h1>
 	{% endif %}
 </tr>
 </table>
-
-<script>
-	const inputElement = document.getElementById("file-input");
-	inputElement.addEventListener("change", handleFiles, false);
-	function handleFiles(files) {
-		for (var i = 0; i < files.length; i++) {
-			document.getElementById("cell-to-hide").hidden = false;
-			console.log(document.getElementById("cell-to-hide").hidden)
-			
-			var file = files[i];
-
-			if (!file.type.startsWith('image/')){ continue }
-
-			var img = document.createElement("img");
-			img.classList.add("obj");
-			img.file = file;
-			img.height = 225;
-			
-			try{
-				var child = preview.lastChild;
-				preview.removeChild(child);
-			} catch (e){}
-			preview.appendChild(img);
-
-			var reader = new FileReader();
-			reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
-			reader.readAsDataURL(file);
-		}
-	}
-</script>
 {% endblock %}

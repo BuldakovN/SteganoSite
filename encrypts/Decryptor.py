@@ -66,12 +66,12 @@ def decrypt(image):
     bytes_count = join_byte(decrypted)
 
     # чтение сообщения из изображения
-    pixel_gen = pixel_generator(seed, image_row, image_column)
+    pixel_gen = pixel_generator(image_row, image_column, seed)
     bytes_list = [] # список байт сообщения
     for _ in range(bytes_count):
         pixel = next(pixel_gen)
         decrypted = read_byte(pixels[pixel])
         decrypted = join_byte(decrypted)
         bytes_list.append(decrypted)
-    return bytes(bytes_list).decode('UTF-8')
+    return bytes(bytes_list).decode('utf-8')
         

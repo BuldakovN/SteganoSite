@@ -85,8 +85,8 @@
 	}
 	
 	div.form{
-		width: 350px;
-		height: 325px;
+		width: 250px;
+		height: 250px;
 		margin-top: 10px;
 		margin-bottom: 0px;
 	}
@@ -94,15 +94,17 @@
 	
 	div.preview{
 		margin-top: 10px;
+		width: 400px;
 	}
 	
 	input[type=submit] {
-		padding:5px 15px; 
-		background:#ccc; 
-		border:0 none;
-		cursor:pointer;
+		padding: 5px 15px; 
+		background: #ccc; 
+		border: 0 none;
+		cursor: pointer;
 		-webkit-border-radius: 5px;
-		border-radius: 5px; 
+		border-radius: 5px;
+		margin-top: 20px;
 	}
 	
 	div.encrypted-image{
@@ -114,14 +116,21 @@
 		background-color: #007fff;
 		border-radius: 40px 40px 40px 40px;
 		color: #fff;
-		font-size: 15;
 		font-family: Arial;
 	}
 	
 	td h1{
 		margin-top: 0px;
 		text-align: center;
+		font-size: 20px;
 	}
+	
+	td h2{
+		margin-top: 0px;
+		text-align: left;
+		font-size: 15px;
+	}
+	
 	
 	#error{
 		background-color: #007fff;
@@ -140,30 +149,26 @@
 						<input id="file-input" type="file" name="image_for_encrypt" accept=".jpg, .jpeg, .png" onchange="handleFiles(this.files)">
 						<label for="file-input" id="file-label">Выберите файл</label>
 					</div>
-					<div class="text-field">
-						<label class="text-field__label" for="text" align="left">Текст для шифровки: </label>
-						<input class="text-field__input" type="text" name="text" id="login" placeholder="Текст для шифровки">
-					</div>
-					<input type="submit">
+					<input type="submit" id="submit">
 			</form>
 		</div>
 	</td>
 	<td hidden id="cell-to-hide">
-		<div class="preview" align="center" id="preview" height=350px width=550px>
-			<h1>Изображения для шифровки</h1>
+		<div class="preview" align="center" id="preview">
+			<h1>Изображения для дешифровки</h1>
 		</div>
 	</td>
 	{% if data.post %}
 	<td>
 		<div class="encrypted-image" align="center">
-			<h1>Изображение с зашифрованным сообщением</h1>
-			<img src="{{url_for('static', filename=data.filename)}}" height=225px>
+			<h1>Зашифрованное сообщение:</h1>
+			<h2>{{ data.text }}</h2>
 		</div>
 	</td>
 	{% endif %}
-	{% if data.data != "" %}
+	{% if data.error != "" %}
 	<td id="error">
-		<h1>{{ data.data }}</h1>
+		<h1>{{ data.error }}</h1>
 	</td>
 	{% endif %}
 </tr>
@@ -184,8 +189,8 @@
 			var img = document.createElement("img");
 			img.classList.add("obj");
 			img.file = file;
-			img.height = 225;
-			
+			img.height = 200;
+						
 			try{
 				var child = preview.lastChild;
 				preview.removeChild(child);
@@ -196,6 +201,6 @@
 			reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
 			reader.readAsDataURL(file);
 		}
-	}
+	} 
 </script>
 {% endblock %}

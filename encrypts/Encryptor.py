@@ -78,7 +78,7 @@ def encrypt(image, text, seed = None, noise = True):
     image_column = image.size[0]        # ширина изображения
     if image_row * image_column / text_len < MAX_INTERVAL:
         raise ValueError("Слишком длинный текст")
-    if seed == None:
+    if seed is None:
         seed = random.randint(0, 255)
     pixels = image.load()       # список пикселей
     filename = image.filename   # название файла
@@ -91,7 +91,7 @@ def encrypt(image, text, seed = None, noise = True):
 
     # запись сообщения в пиксели
     bytes_count = 0 #количество байт в сообщении
-    pixel_gen = pixel_generator(seed, image_row, image_column)
+    pixel_gen = pixel_generator(image_row, image_column, seed)
     for char in text:
         char = char.encode('utf-8')
         for byte in char:

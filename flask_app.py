@@ -10,8 +10,9 @@ from Controller import Controller
 links = {
         "encrypt":"/encrypt",
         "decrypt":"/decrypt",
-        "deepapiencrypt":"/deepapidecrypt"
+        "deepapiencrypt":"/deepapiencrypt"
 }
+
 
 @app.route('/')
 @app.route('/index')
@@ -33,8 +34,7 @@ def encrypt():
         if text == "":
             data['data'] = "НЕТ СТРОКИ ДЛЯ ШИФРОВАНИЯ"
             return render_template("encrypt.html", links=links, data=data)
-
-
+        
         file.save("static/" + file.filename)
         data['filename']=file.filename
         controller = Controller()
@@ -44,6 +44,47 @@ def encrypt():
     return render_template("encrypt.html", links=links, data=data)
 
 
+
+@app.route('/decrypt', methods=['GET', 'POST'])
+def decrypt():
+    data = {"post":False, "error":"", "text":""}
+    if request.method == "POST":
+        file = request.files['image_for_encrypt']
+        if file.filename == '':
+            flash('Нет файла')
+            data['data'] = "НЕТ ФАЙЛА"
+            return render_template("encrypt.html", links=links, data=data)
+
+        file.save("static/" + file.filename)
+        data['filename'] = file.filename
+        controller = Controller()
+        text = controller.to_decrypt(f"static/{data['filename']}")
+        data['text'] = text
+        data['post'] = True
+        if text is None:
+            data['error'] = "Не удалось расшифровать изображение"
+            data['post'] = False
+    return render_template("decrypt.html", links=links, data=data)
+
+
+
+@app.route('/deepapiencrypt', methods=['GET', 'POST'])
+def deepapiencrypt():
+    data = {"post":False, "error":"", "text":""}
+    if request.method == "POST":
+        data['post'] = True
+        text = request.form.get('text')
+        theme = request.form.get('theme')
+        if theme == "" or text == "":
+            data['error'] = "Заполните оба поля"
+            data['post'] = False
+            return render_template("deepapiencrypt.html", links=links, data=data)
+        
+        controller = Controller()
+        image = controller.to_encrypt_with_generated_image(text, theme)
+        data['filename'] = image.filename.split("/")[-1]
+        data['data'] = data['filename']
+    return render_template("deepapiencrypt.html", links=links, data=data)
 
 
 if __name__ == "__main__":
