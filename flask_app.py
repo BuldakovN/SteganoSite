@@ -14,12 +14,12 @@ links = {
 }
 
 
-@app.route('/')
-@app.route('/index')
+
 def index():
     return render_template("base.html" ,links=links)
 
 
+@app.route('/')
 @app.route('/encrypt', methods=['GET', 'POST'])
 def encrypt():
     data = {"post":False, "data":""}
