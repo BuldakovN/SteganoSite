@@ -73,5 +73,5 @@ class Controller:
             return Decryptor.decrypt(image)
         except Exception as e:
             with open('log error.txt', 'a') as f:
-                f.write("Ошибка декодирования " + theme + '\n')
+                f.write("Ошибка декодирования " + '\n')
             return None
