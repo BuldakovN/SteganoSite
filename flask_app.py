@@ -16,10 +16,10 @@ links = {
 
 
 def index():
-    return render_template("base.html" ,links=links)
+    return render_template("index.html" ,links=links)
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/encrypt', methods=['GET', 'POST'])
 def encrypt():
     data = {"post":False, "data":""}

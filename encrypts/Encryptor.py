@@ -84,7 +84,7 @@ def encrypt(image, text, seed = None, noise = True):
     filename = image.filename   # название файла
     draw = ImageDraw.Draw(image)# объект редактирования изображения
 
-    # зашифровка сида
+    # зашифровка сида 
     encrypted = split_byte(seed)
     encrypted = write_byte(pixels[(0, 0)], encrypted)
     draw.point((0, 0), encrypted)
