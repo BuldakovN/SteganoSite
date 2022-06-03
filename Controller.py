@@ -23,7 +23,7 @@ class Controller:
         """
         image = Image.open(os.path.abspath(filename))
         image = Encryptor.encrypt(image, text)
-        image.save('static/b.jpg')
+        image.save(filename)
         print(os.path.abspath(filename))
         return image
 
@@ -73,5 +73,5 @@ class Controller:
             return Decryptor.decrypt(image)
         except Exception as e:
             with open('log error.txt', 'a') as f:
-                f.write("Ошибка декодирования " + '\n')
+                f.write("Ошибка декодирования: " + str(e) + '\n')
             return None
